@@ -168,6 +168,14 @@ describe Monetize do
           expect('20.00 GBP'.to_money).to eq Money.new(20_00, 'GBP')
         end
 
+        context 'ISO code is lower-case' do
+          it 'parses the currency given as ISO code' do
+            expect('20.00 usd'.to_money).to eq Money.new(20_00, 'USD')
+            expect('20.00 eur'.to_money).to eq Money.new(20_00, 'EUR')
+            expect('20.00 gbp'.to_money).to eq Money.new(20_00, 'GBP')
+          end
+        end
+
         it 'raises an error if currency code is invalid' do
           expect { '20.00 OMG'.to_money }.to raise_error Monetize::ParseError
         end
